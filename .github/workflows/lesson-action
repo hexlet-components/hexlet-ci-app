@@ -1,0 +1,14 @@
+name: lesson-action
+on: push
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    matrix:
+      os: [ubuntu-latest, macos-latest]
+  steps:
+      - run: make setup
+      - run: make start
+      - name: run tests
+        run: make test
+      - name: run linter
+        run: make lint
