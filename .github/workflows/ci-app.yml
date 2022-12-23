@@ -1,12 +1,19 @@
 name: ci-app
 on: push
 jobs:
-  build:
+container-job:
     runs-on: ubuntu-latest
+    container: node:16-bullseye
+    services:
+      redis:
+        image: redis
+  build:
+    # runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: "actions/checkout@v2"
-      - uses: actions/setup-node@v1
+      - name: node
+        uses: actions/setup-node@v1
       - name: setup
         run: make setup
       - name: start
