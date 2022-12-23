@@ -6,6 +6,7 @@ jobs:
     steps:
       - name: checkout
         uses: "actions/checkout@v2"
+      - uses: actions/setup-node@v1
       - name: setup
         run: make setup
       - name: start
