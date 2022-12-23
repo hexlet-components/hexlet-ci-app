@@ -2,20 +2,13 @@ name: ci-app
 on: push
 jobs:
   build:
-container-job:
     runs-on: ubuntu-latest
-    container: node:16-bullseye
-    services:
-      redis:
-        # Docker Hub image
-        image: redis
-    # runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: "actions/checkout@v2"
       - name: setup
         run: make setup
-      - name: start
+      - name: setup
         run: make start
       - name: run test
         run: make test
