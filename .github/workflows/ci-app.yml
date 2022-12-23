@@ -13,8 +13,6 @@ jobs:
           cache: 'npm'
       - name: setup
         run: make setup
-      - name: start
-        run: make start
       - name: run test
         run: make test
       - name: run lint
