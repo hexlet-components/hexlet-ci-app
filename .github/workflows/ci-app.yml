@@ -6,8 +6,9 @@ jobs:
     steps:
       - name: checkout
         uses: "actions/checkout@v2"
-      - name: setap
+      - name: setup
         run: make setup
+      - name: start
         run: make start
       - name: run test
         run: make test
