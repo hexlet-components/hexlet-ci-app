@@ -2,7 +2,7 @@ name: Project setup, Tests startup, Linter startup
 on: push
 jobs:
   build:
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Project setup
         run: make setup, make start
