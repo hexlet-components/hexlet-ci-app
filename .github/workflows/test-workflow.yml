@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Project setup
-        run: make setup, make start
+        run: make setup | make start
       - name: Tests startup
         run: make test
       - name: Linter startup
