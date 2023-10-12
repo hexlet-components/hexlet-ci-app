@@ -1,0 +1,12 @@
+name: Project setup, Tests startup, Linter startup
+on: push
+jobs:
+  build:
+    runs-on: ubunty-latest
+    steps:
+      - name: Project setup
+        run: make setup, make start
+      - name: Tests startup
+        run: make test
+      - name: Linter startup
+        run: make lint
