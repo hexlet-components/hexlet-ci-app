@@ -12,3 +12,7 @@ jobs:
         run: make test
       - name: Linter startup
         run: make lint
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.MY_FIRST_TEST_SECRET }}
