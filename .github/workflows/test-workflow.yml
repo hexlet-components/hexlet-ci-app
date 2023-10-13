@@ -1,0 +1,14 @@
+name: Project setup, Tests startup, Linter startup
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+      - name: Project setup
+        run: make setup
+      - name: Tests startup
+        run: make test
+      - name: Linter startup
+        run: make lint
