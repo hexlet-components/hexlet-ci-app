@@ -6,6 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: npm
       - name: Project setup
         run: make setup
       - name: Tests startup
