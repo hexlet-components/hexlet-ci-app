@@ -1,0 +1,16 @@
+name: start
+# on – определяет события, которые запускают воркфлоу
+on: push
+jobs:
+  build: # имя взято для примера
+    runs-on: ubuntu-latest
+
+    steps:
+      # Клонируем репозиторий
+      - uses: actions/checkout@v3
+      # Устанавливаем Node.js
+      - uses: actions/setup-node@v3
+      # Ставим зависимости
+      - run: make setup
+      - run: make lint
+      - run: make test
