@@ -1,0 +1,14 @@
+name: CI_practice
+run-name: ${{ github.actor }} is testing out GitHub CI for this student
+on: [push]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v3
+            - run: make setup
+            - run: make start
+            - run: make lint
+            - name: run tests
+              run: make test
