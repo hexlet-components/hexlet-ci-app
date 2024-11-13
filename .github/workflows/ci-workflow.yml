@@ -1,0 +1,22 @@
+name: CI Workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Установка зависимостей
+      - name: Set up project
+        run: make setup
+
+      # Запуск тестов
+      - name: Run tests
+        run: make test
+
+      # Запуск линтера
+      - name: Run linter
+        run: make lint
