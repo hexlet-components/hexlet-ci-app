@@ -1,0 +1,28 @@
+name: CI test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    # The type of machine to run the job on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check-out repository under GitHub workspace
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+      
+      # Install dependencies
+      - run: make install
+      
+      # Run linter
+      - run: make lint
+      
+      # Run tests
+      - run: make test
