@@ -1,0 +1,13 @@
+name: CI pipline
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run make setup
+        run: make setup
+      - name: Run make test
+        run: make test
+      - name: Run make lint
+        run: make lint
