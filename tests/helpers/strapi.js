@@ -1,6 +1,6 @@
-const path = require('node:path');
-const { compileStrapi, createStrapi } = require('@strapi/strapi');
-const fs = require('node:fs');
+const path = require("node:path");
+const { compileStrapi, createStrapi } = require("@strapi/strapi");
+const fs = require("node:fs");
 
 let instance;
 
@@ -18,10 +18,7 @@ async function cleanupStrapi() {
     return;
   }
 
-  const tmpDbFile = path.join(
-    process.cwd(),
-    process.env.DATABASE_FILENAME || '.tmp/data.db',
-  );
+  const tmpDbFile = path.join(process.cwd(), process.env.DATABASE_FILENAME || ".tmp/data.db");
 
   await instance.destroy();
 
