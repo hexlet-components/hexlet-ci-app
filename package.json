@@ -6,17 +6,21 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "lint": "biome check .",
+    "lint": "oxlint --config=.oxlintrc.json .",
     "lint-fix": "biome check . --write",
     "build": "strapi build",
     "strapi": "strapi",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint:fix": "oxfmt --ignore-path=.oxfmtignore . && oxlint --config=.oxlintrc.json --fix .",
+    "format": "oxfmt --ignore-path=.oxfmtignore .",
+    "format:check": "oxfmt --ignore-path=.oxfmtignore --check ."
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.6",
-    "vitest": "^4.1.10",
     "better-sqlite3": "^13.0.2",
-    "supertest": "^7.2.2"
+    "oxfmt": "^0.63.0",
+    "oxlint": "^1.78.0",
+    "supertest": "^7.2.2",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@strapi/plugin-users-permissions": "5.51.0",
@@ -36,5 +40,6 @@
     "node": ">=26.x.x",
     "npm": ">=10.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@11.20.0"
 }
