@@ -17,6 +17,6 @@ lint:
 	pnpm --silent run format:check
 
 lint-fix:
-	pnpm run lint-fix
+	pnpm run lint:fix
 
 .PHONY: build
