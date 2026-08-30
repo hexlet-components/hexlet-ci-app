@@ -13,9 +13,9 @@ Starting boilerplate of [Strapi](https://strapi.io/) application
 
 ## System requirements
 
-* NodeJS >= 26
-* pnpm >= 11
-* Make
+- NodeJS >= 26
+- pnpm >= 11
+- Make
 
 ## Using
 
