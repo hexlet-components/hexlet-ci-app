@@ -40,5 +40,5 @@
     "npm": ">=10.0.0"
   },
   "license": "MIT",
-  "packageManager": "pnpm@11.24.0"
+  "packageManager": "pnpm@12.6.0"
 }
