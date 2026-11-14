@@ -17,8 +17,24 @@ rumdl = "latest"
 typos = "latest"
 
 [tasks.setup]
-description = "Поставить зависимости и git-хуки"
-run = ["pnpm install", "hk install"]
+description = "Поставить зависимости и собрать приложение"
+run = ["pnpm install --frozen-lockfile", "pnpm run build"]
+
+[tasks.lint]
+description = "Проверить код и форматирование"
+run = ["pnpm run lint", "pnpm run format:check"]
+
+[tasks.test]
+description = "Запустить тесты и сохранить JUnit-отчёт"
+run = "pnpm test"
+
+[tasks.start]
+description = "Запустить приложение"
+run = "pnpm start"
+
+[tasks.build]
+description = "Собрать приложение"
+run = "pnpm run build"
 
 [tasks.check]
 description = "Все проверки, тот же набор, что гоняет CI"

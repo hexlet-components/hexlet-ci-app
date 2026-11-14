@@ -9,7 +9,7 @@
     "lint": "oxlint .",
     "build": "strapi build",
     "strapi": "strapi",
-    "test": "vitest run",
+    "test": "vitest run --reporter=default --reporter=junit --outputFile.junit=reports/test-results.xml",
     "lint:fix": "oxfmt . && oxlint --fix .",
     "format": "oxfmt .",
     "format:check": "oxfmt --check ."

@@ -11,26 +11,32 @@ Starting boilerplate of [Strapi](https://strapi.io/) application
 ## System requirements
 
 - NodeJS >= 26
-- pnpm >= 11
-- Make
+- pnpm 12 (точная версия указана в packageManager файла package.json)
+- [mise](https://mise.jdx.dev/getting-started.html)
 
 ## Using
 
 ```sh
-make setup
-make start
+mise trust
+mise install
+mise run setup
+mise run start
 ```
+
+`mise.toml` задаёт версии инструментов и команды проекта. Задача `setup` устанавливает зависимости из `pnpm-lock.yaml` и собирает приложение. Локально и в GitHub Actions используются одинаковые задачи.
 
 ## Run tests
 
 ```sh
-make test
+mise run test
 ```
+
+После запуска тестов файл `reports/test-results.xml` содержит JUnit-отчёт. Он создаётся и при падении проверки в тесте. Логи установки и сборки нужно искать в выводе соответствующего шага, если тесты ещё не запускались.
 
 ## Run linter
 
 ```sh
-make lint
+mise run lint
 ```
 
 ---
