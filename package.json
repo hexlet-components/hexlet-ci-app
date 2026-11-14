@@ -16,17 +16,17 @@
   },
   "devDependencies": {
     "better-sqlite3": "^13.0.3",
-    "oxfmt": "^0.74.0",
-    "oxlint": "^1.89.0",
-    "supertest": "^7.3.1",
+    "oxfmt": "^0.77.0",
+    "oxlint": "^1.92.0",
+    "supertest": "^7.3.2",
     "vitest": "^4.1.12"
   },
   "dependencies": {
-    "@strapi/plugin-users-permissions": "5.52.2",
-    "@strapi/strapi": "5.52.2",
+    "@strapi/plugin-users-permissions": "5.61.0",
+    "@strapi/strapi": "5.61.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.4",
+    "react-router-dom": "^7.18.5",
     "styled-components": "^6.6.0"
   },
   "author": {
