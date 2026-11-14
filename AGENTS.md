@@ -19,8 +19,7 @@
 
 ## Эталон в `final`
 
-`final` это тот же файл с заполненным регионом плюс бейдж в README. На него
-курс показывает студенту как на ответ.
+`final` содержит полный учебный воркфлоу в `.github/workflows/main.yml`, бейдж в README и `actions.lock` в каталоге `.github/workflows`, созданный командой `gh actions-lock`. На эту ветку курс показывает студенту как на ответ.
 
 Ветка держится как `main` плюс один коммит, без собственной истории. Обновляют
 её пересборкой:
@@ -32,10 +31,10 @@ git push --force-with-lease origin final
 ```
 
 Сверка после: `gh api "repos/hexlet-components/hexlet-ci-app/compare/main...final"`
-даёт `ahead 1`, `behind 0` и ровно два файла.
+даёт `ahead 1`, `behind 0` и пять изменённых файлов. Это `main.yml`, `check.yml` и `pr-title.yml` в каталоге `.github/workflows`, `README.md` и созданный генератором `actions.lock`. Генератор переводит SHA в `uses` на читаемые полные теги и фиксирует их коммиты в lockfile, поэтому меняет и служебные воркфлоу. После изменения экшенов выполни `gh actions-lock` и `gh actions-lock --verify` в рабочем дереве эталона.
 
 Бейдж в README ветки `final` несёт `?branch=final`: без параметра GitHub
 показывает статус дефолтной ветки, то есть каркаса. В README ветки `main`
 бейджа нет — его добавление входит в самостоятельную.
 
-Версия Node в воркфлоу берётся из `engines` в `package.json`.
+Версию Node задаёт `mise.toml`, и `jdx/mise-action` устанавливает инструменты из этой конфигурации.
