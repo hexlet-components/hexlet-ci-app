@@ -1,0 +1,61 @@
+.app-check:
+  image: ubuntu:$UBUNTU_VERSION
+  stage: check
+  interruptible: true
+  timeout: 30 minutes
+  before_script:
+    - source .gitlab/ci/bootstrap.sh
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+      prefix: ubuntu-$UBUNTU_VERSION
+    paths:
+      - .pnpm-store/
+
+lint:
+  extends: .app-check
+  script:
+    - mise run lint
+
+test:
+  extends: .app-check
+  parallel:
+    matrix:
+      - UBUNTU_VERSION: ["24.04", "26.04"]
+  script:
+    - mise run test
+  artifacts:
+    when: always
+    expire_in: 7 days
+    name: test-$UBUNTU_VERSION-$CI_COMMIT_SHORT_SHA
+    paths:
+      - reports/test-results.xml
+    reports:
+      junit: reports/test-results.xml
+
+revision:
+  image: ubuntu:24.04
+  stage: check
+  script:
+    - printf 'CHECKED_SHA=%s\n' "$CI_COMMIT_SHA" > revision.env
+  artifacts:
+    expire_in: 7 days
+    paths:
+      - revision.env
+    reports:
+      dotenv: revision.env
+
+report:
+  image: ubuntu:24.04
+  stage: report
+  needs:
+    - job: lint
+      artifacts: false
+    - job: test
+      artifacts: false
+    - job: revision
+      artifacts: true
+  script:
+    - test "$CHECKED_SHA" = "$CI_COMMIT_SHA"
+    - cat revision.env
