@@ -38,6 +38,9 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Build admin panel
+        run: mise run build
+
       - name: Run checks
         run: mise run check
         env:
