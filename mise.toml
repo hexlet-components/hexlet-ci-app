@@ -17,8 +17,8 @@ rumdl = "latest"
 typos = "latest"
 
 [tasks.setup]
-description = "Поставить зависимости и собрать приложение"
-run = ["pnpm install --frozen-lockfile", "pnpm run build"]
+description = "Поставить зависимости"
+run = "pnpm install --frozen-lockfile"
 
 [tasks.lint]
 description = "Проверить код и форматирование"
@@ -29,7 +29,8 @@ description = "Запустить тесты и сохранить JUnit-отч�
 run = "pnpm test"
 
 [tasks.start]
-description = "Запустить приложение"
+description = "Собрать и запустить приложение"
+depends = ["build"]
 run = "pnpm start"
 
 [tasks.build]
