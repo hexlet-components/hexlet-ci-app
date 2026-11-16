@@ -19,6 +19,8 @@ permissions: {}
 
 jobs:
   lint:
+    # В форке студента заголовок PR свободный, проверка только для этого репозитория.
+    if: github.repository == 'hexlet-components/hexlet-ci-app'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:

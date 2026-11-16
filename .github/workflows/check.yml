@@ -21,6 +21,10 @@ permissions:
 
 jobs:
   check:
+    # Студент форкает репозиторий ради учебного main.yml. Служебные проверки
+    # в форке пропускаются: lockfile там не обновляется, а коммиты и PR
+    # студента не обязаны следовать conventional commits.
+    if: github.repository == 'hexlet-components/hexlet-ci-app'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
