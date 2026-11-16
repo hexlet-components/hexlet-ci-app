@@ -6,7 +6,10 @@
 # молча.
 allowBuilds:
   '@swc/core': true
-  better-sqlite3: true
+  # better-sqlite3 с 13-й версии кладёт готовые бинарники в сам пакет. С
+  # разрешённым build-скриптом pnpm запускает node-gyp, и на машине без
+  # Python и компилятора C++ установка падает.
+  better-sqlite3: false
   core-js-pure: true
   esbuild: true
   # sharp ставит готовый бинарник. С разрешённым build-скриптом он вместо
