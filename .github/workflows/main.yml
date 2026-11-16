@@ -1,23 +1,10 @@
-name: show-directory
-# on – определяет события, которые запускают воркфлоу
-on:
-  - push
-  - pull_request
-
-env:
-  CI: true
-# Пример для проекта на Node.js
+name: CI
+on: push
 jobs:
-  build: # имя взято для примера
-    runs-on: ubuntu-latest
-
+  check:
+    runs-on: ubuntu-26.04
     steps:
-      # Клонируем репозиторий
-      - uses: actions/checkout@v4
-      # Устанавливаем Node.js
-      - uses: actions/setup-node@v4
-      # Ставим зависимости
-      - run: make install
-      - run: make test 
-      - run: make lint
-      - uses: hexlet-components/hello-from-hexlet-action@release
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: List files
+        run: ls -la
