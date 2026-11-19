@@ -6,6 +6,17 @@ on:
     branches: [main]
   workflow_dispatch:
 jobs:
+  parallel-demo:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.2.10
+      - run: mise run setup
+      - parallel:
+          - name: Lint
+            run: mise run lint
+          - name: Test
+            run: mise run test
   lint:
     runs-on: ubuntu-26.04
     steps:
