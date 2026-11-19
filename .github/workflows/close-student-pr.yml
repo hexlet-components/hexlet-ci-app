@@ -1,0 +1,52 @@
+name: Close student PR
+
+# Курс просит открывать PR внутри своего форка, но страница создания PR в форке
+# по умолчанию предлагает base repository исходного репозитория. Такие PR
+# закрываются с подсказкой. Код PR не забирается, поэтому pull_request_target
+# здесь безопасен: шаг видит только номер PR и имя репозитория студента.
+on:
+  # Записи в PR нужен токен с pull-requests: write, код PR не запускается.
+  pull_request_target: # jactionlint ignore=dangerous-triggers
+    types:
+      - opened
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  close:
+    if: >-
+      github.repository == 'hexlet-components/hexlet-ci-app'
+      && github.event.pull_request.head.repo.fork
+      && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Close with a hint
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          body=$(cat <<EOF
+          Этот PR открыт в учебный репозиторий \`hexlet-components/hexlet-ci-app\`. Самостоятельные работы курса выполняются в вашем форке, поэтому PR закрыт автоматически.
+
+          Чтобы открыть PR внутри форка, на странице создания PR выберите в поле **base repository** свой репозиторий \`$HEAD_REPO\`. Из терминала то же делает команда:
+
+          \`\`\`sh
+          gh pr create --repo $HEAD_REPO --base main
+          \`\`\`
+
+          Если вы предлагаете правку самого учебного приложения, напишите об этом в комментарии, и мы посмотрим PR.
+
+          ---
+
+          This PR targets the course template repository. Course exercises are done in your fork: open the PR with \`$HEAD_REPO\` selected as the base repository.
+          EOF
+          )
+          gh pr close "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --comment "$body"
