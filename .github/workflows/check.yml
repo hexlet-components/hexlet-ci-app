@@ -1,0 +1,66 @@
+name: Check
+
+# Проверки dev-guardrails: форматы, ссылки, опечатки, workflows, секреты,
+# уязвимости лока и заголовки коммитов. Заголовки коммитов проверяются здесь по
+# диапазону пуша, потому что коммиты уходят прямо в main и pr-title.yml их не
+# видит, а release-please читает именно историю.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # Студент форкает репозиторий ради учебного main.yml. Служебные проверки
+    # в форке пропускаются: lockfile там не обновляется, а коммиты и PR
+    # студента не обязаны следовать conventional commits.
+    if: github.repository == 'hexlet-components/hexlet-ci-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5.2.9
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build admin panel
+        run: mise run build
+
+      - name: Run checks
+        run: mise run check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit messages
+        env:
+          FROM: ${{ github.event.pull_request.base.sha || github.event.before }}
+          TO: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ "$FROM" = "0000000000000000000000000000000000000000" ]; then
+            FROM="$TO~1"
+          fi
+          commitlint --from "$FROM" --to "$TO"
+
+      - name: Secrets
+        run: betterleaks git --log-opts="$FROM..$TO" --no-banner .
+        env:
+          FROM: ${{ github.event.pull_request.base.sha || github.event.before }}
+          TO: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Vulnerabilities
+        run: osv-scanner scan source --lockfile pnpm-lock.yaml

@@ -1,18 +1,22 @@
 setup: install build
 
 install:
-	npm install
+	pnpm install
 
 build:
-	npm run build
+	pnpm run build
 
 start:
 	npm start
 
 test:
-	npm test
+	pnpm test
 
 lint:
-	npx eslint .
+	pnpm run lint
+	pnpm --silent run format:check
+
+lint-fix:
+	pnpm run lint:fix
 
 .PHONY: build

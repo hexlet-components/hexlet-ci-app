@@ -1,0 +1,46 @@
+# Тулинг репозитория для хоста и CI (jdx/mise-action). Точную версию pnpm
+# задаёт packageManager в package.json: pnpm сам переключается на неё и
+# записывает её в лок, поэтому здесь только мажор.
+[tools]
+betterleaks = "latest"
+"github:agent-sh/agnix" = "latest"
+hk = "2"
+jactionlint = "latest"
+lychee = "latest"
+node = "26"
+"npm:@commitlint/cli" = "latest"
+"npm:@commitlint/config-conventional" = "latest"
+osv-scanner = "latest"
+pkl = "latest"
+pnpm = "12"
+rumdl = "latest"
+typos = "latest"
+
+[tasks.setup]
+description = "Поставить зависимости"
+run = "pnpm install --frozen-lockfile"
+
+[tasks.lint]
+description = "Проверить код и форматирование"
+run = ["pnpm run lint", "pnpm run format:check"]
+
+[tasks.test]
+description = "Запустить тесты и сохранить JUnit-отчёт"
+run = "pnpm test"
+
+[tasks.start]
+description = "Собрать и запустить приложение"
+depends = ["build"]
+run = "pnpm start"
+
+[tasks.build]
+description = "Собрать приложение"
+run = "pnpm run build"
+
+[tasks.check]
+description = "Все проверки, тот же набор, что гоняет CI"
+run = "hk check --all"
+
+[tasks.fix]
+description = "Применить автоисправления"
+run = "hk fix --all"

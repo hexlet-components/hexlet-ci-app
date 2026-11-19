@@ -101,6 +101,7 @@ node_modules
 
 testApp
 coverage
+reports/
 
 ############################
 # Strapi
@@ -112,3 +113,5 @@ exports
 *.cache
 build
 .strapi-updater.json
+.strapi
+.lycheecache
