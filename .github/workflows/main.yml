@@ -7,7 +7,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Mise
-        uses: jdx/mise-action@v7
+        uses: jdx/mise-action@v5
         with:
           install: true
       - name: Setup
