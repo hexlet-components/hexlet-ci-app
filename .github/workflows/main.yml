@@ -13,8 +13,6 @@ jobs:
       - uses: jdx/mise-action@v5.2.10
       - run: mise run setup
       - run: mise run lint
-      - run: exit 1
-
   test:
     runs-on: ubuntu-26.04
     steps:
