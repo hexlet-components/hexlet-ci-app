@@ -23,17 +23,25 @@ jobs:
     permissions:
       contents: read
 
+  lint:
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
-        with:
-          persist-credentials: false
-
       - uses: jdx/mise-action@v5.2.9
-      # BEGIN
-      - name: Setup
-        run: mise run setup
-      - name: Lint
-        run: mise run lint
-      - name: Test
-        run: mise run test
-      # END
+      - run: mise run setup
+      - run: mise run lint
+
+  test:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.2.9
+      - run: mise run setup
+      - run: mise run lint
+
+  verify:
+    name: CI result
+    needs: [lint, test]
+    runs-on: ubuntu-26.04
+    steps:
+      - run: echo "All checks passed"
