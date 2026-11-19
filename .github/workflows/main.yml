@@ -4,7 +4,13 @@ jobs:
   check:
     runs-on: ubuntu-26.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: List files
-        run: ls -la 
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+        with:
+          install: true
+      - name: Setup
+        run: mise run setup
+      - name: Lint
+        run: mise run lint
+      - name: Test
+        run: mise run test
