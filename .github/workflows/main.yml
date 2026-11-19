@@ -3,6 +3,8 @@ name: Node CI
 on:
   push:
     branches: [main]
+    paths:
+      - 'scr/**'
   pull_request:
     branches: [main]
   workflow_dispatch:
