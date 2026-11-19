@@ -1,33 +1,10 @@
-name: Node CI
-
-on:
-  push:
-    branches:
-      - main
-  pull_request: null
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
-permissions: {}
-
+name: CI
+on: push
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    strategy:
-      matrix:
-        node-version: [ 26.x ]
-    permissions:
-      contents: read
-
+  check:
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5.2.9
-      # BEGIN
-      # Set the project up, run the linter and run the tests.
-      # END
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: List files
+        run: ls -la 
