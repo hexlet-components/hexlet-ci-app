@@ -11,36 +11,29 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-
-    strategy:
-      matrix:
-        node-version: [ 26.x ]
-    permissions:
+permissions:
       contents: read
 
-    lint:
-      runs-on: ubuntu-26.04
-      steps:
-        - uses: actions/checkout@v7
-        - uses: jdx/mise-action@v5
-        - run: mise run setup
-        - run: mise run lint
+jobs:
+  lint:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run setup
+      - run: mise run lint
 
-    test:
-      runs-on: ubuntu-26.04
-      steps:
-        - uses: actions/checkout@v7
-        - uses: jdx/mise-action@v5
-        - run: mise run setup
-        - run: mise run test
+  test:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run setup
+      - run: mise run test
 
-    verify:
-      name: CI result
-      needs: [lint, test]
-      runs-on: ubuntu-26.04
-      steps:
-        - run: echo "All checks passed"
+  verify:
+    name: CI result
+    needs: [lint, test]
+    runs-on: ubuntu-26.04
+    steps:
+      - run: echo "All checks passed"
