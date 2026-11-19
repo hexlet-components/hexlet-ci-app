@@ -1,5 +1,5 @@
 # Example app for CI Hexlet course
-
+# test ci-training
 Starting boilerplate of [Strapi](https://strapi.io/) application
 
 ## Зачем это нужно
