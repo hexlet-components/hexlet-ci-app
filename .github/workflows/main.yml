@@ -6,5 +6,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: List files
-        run: ls -la
+      - name: Mise
+        uses: jdx/mise-action@v7
+        with:
+          install: true
+      - name: Setup
+        run: mise run setup
+      - name: Lint
+        run: mise run lint
+      - name: Test
+        run: mise run test
