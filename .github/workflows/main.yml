@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
       - name: Mise
-        uses: jdx/mise-action@v5
+        uses: jdx/mise-action@v5.2.10
         with:
           install: true
       - name: Setup
