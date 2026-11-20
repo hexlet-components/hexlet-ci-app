@@ -44,3 +44,6 @@ run = "hk check --all"
 [tasks.fix]
 description = "Применить автоисправления"
 run = "hk fix --all"
+
+[tasks.server-demo]
+run = "node demo-server.js"
