@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.2.10
+      - uses: jdx/mise-action@v5.2.9
       - run: mise run setup
       - run: mise run lint
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: jdx/mise-action@v5.2.10
+      - uses: jdx/mise-action@v5.2.9
       - run: mise run setup
       - run: exit 1
       - run: mise run test
