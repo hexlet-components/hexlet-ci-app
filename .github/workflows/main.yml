@@ -29,7 +29,6 @@ jobs:
       - uses: actions/checkout@v7.0.1
       - uses: jdx/mise-action@v5.2.9
       - run: mise run setup
-      - run: exit 1
       - run: mise run test
 
   verify:
