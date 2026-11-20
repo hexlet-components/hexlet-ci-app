@@ -26,4 +26,5 @@ jobs:
             wait: tests
             run: mise run lint
           - name: Test
+            id: tests
             run: mise run test
