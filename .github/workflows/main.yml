@@ -14,6 +14,8 @@ concurrency:
 permissions:
       contents: read
 
+env: 
+  CHECK_LABEL: training
 jobs:
   lint:
     runs-on: ubuntu-26.04
@@ -46,3 +48,20 @@ jobs:
         run: test "$(curl --fail --silent http://127.0.0.1:3000/)" = ready
       - name: Stop demo server
         cancel: server
+
+  inspect:
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Show workflow values
+        run:
+          printf '%s\n' "$CHECK_LABEL"
+          printf '%s\n' "$GITHUB_WORKFLOW"
+      - name: Show step value
+        env:
+          CHECK_LABEL: local-step
+        run: printf '%\n' "$CHECK_LABEL"
+      - name: Show workflow value again
+        run: printf '%\n' "$CHECK_LABEL"
+      - name: Manual run information
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo 'This step was requested manually'
