@@ -35,6 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: jdx/mise-action@v5.2.10
+      - run: mise run setup
       - name: Start demo server
         id: server
         background: true
