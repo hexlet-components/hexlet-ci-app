@@ -29,4 +29,3 @@ jobs:
         run: mise run lint
       - name: Wait for tests
         wait: tests
-      - name: Wait for remaining work
