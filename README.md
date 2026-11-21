@@ -47,3 +47,4 @@ This repository is created and maintained by the team and the community of Hexle
 
 
 CI training
+Проверка запуска CI для pull request.
