@@ -29,3 +29,18 @@ jobs:
         run: mise run lint
       - name: Wait for tests
         wait: tests
+
+jobs:
+  lint:
+    runs-on: ubuntu-26
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.2.10
+      - name: Start demo server
+        id: server
+        background: true
+        run: mise run server-demo
+      - name: Check responces
+        run: test "$(curl --fail --silent http://127.0.0.1:3000/)" = ready
+      - name: Stop demo server
+        cancel: server
