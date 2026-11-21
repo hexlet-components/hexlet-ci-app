@@ -30,4 +30,3 @@ jobs:
       - name: Wait for tests
         wait: tests
       - name: Wait for remaining work
-        wait_all:
